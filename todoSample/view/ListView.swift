@@ -17,51 +17,54 @@ struct ListView: View {
     @State var showAlert: Bool = false
     
     var body: some View {
-        VStack{
-            TextField("Enter Your todo ", text: $textField)
-                .frame( height: 50)
-                .background(Color.mint)
-                .cornerRadius(10)
+            VStack{
+                Text("Todo")
+                    .padding(10)
+                    .font(.title)
+                TextField("Enter Your todo ", text: $textField)
+                    .frame( height: 50)
+                    .background(Color.mint)
+                    .cornerRadius(10)
                 
-            
-            Button(
-                action: addTodo
-                , label: {
-                    Text("Add todo")
-                        .font(.headline)
-                        .frame(height: 50)
-                        .background(Color.clear)
-                })
-            .alert(isPresented: $showAlert, content: getAlert)
-            
-            List {
-                ForEach(listView.todos) { item in
-                    ListRowView(todo: item)
+                
+                Button(
+                    action: addTodo
+                    , label: {
+                        Text("Add todo")
+                            .font(.headline)
+                            .frame(height: 50)
+                            .background(Color.clear)
+                    })
+                .alert(isPresented: $showAlert, content: getAlert)
+                
+                List {
+                    ForEach(listView.todos) { item in
+                        ListRowView(todo: item)
+                    }
                 }
             }
         }
-    }
-    
-    func addTodo() {
-        if textIsAppropriate() {
-            listView.addTodo(title: textField)
-            textField = ""
-            presentationMode.wrappedValue.dismiss()
+        
+        func addTodo() {
+            if textIsAppropriate() {
+                listView.addTodo(title: textField)
+                textField = ""
+                presentationMode.wrappedValue.dismiss()
+            }
         }
-    }
-
-    func textIsAppropriate() -> Bool {
-        if textField.isEmpty {
-            alertTitle = "Enter a valid todo"
-            showAlert.toggle()
-            return false
+        
+        func textIsAppropriate() -> Bool {
+            if textField.isEmpty {
+                alertTitle = "Enter a valid todo"
+                showAlert.toggle()
+                return false
+            }
+            return true
         }
-        return true
-    }
-
-    func getAlert() -> Alert {
-        return Alert(title: Text(alertTitle))
-    }
+        
+        func getAlert() -> Alert {
+            return Alert(title: Text(alertTitle))
+        }
 }
 
 
