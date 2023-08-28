@@ -8,26 +8,30 @@
 import Foundation
 
 class User : Identifiable {
-    let id:String
+    var id:String
     var name:String
     var description:String
-    
+
     init(id: String, name: String, description: String) {
         self.id = id
         self.name = name
         self.description = description
     }
-    
+
+    func getId() -> String {
+        id
+    }
+
+    func setId(id:String) {
+        self.id = id
+    }
+
     func getName() -> String {
         return name
     }
     
     func setName(name:String) {
         self.name =  name
-    }
-    
-    func getId() -> String {
-        return id
     }
     
     func getDescription() -> String {
@@ -37,4 +41,5 @@ class User : Identifiable {
     func setDescription(description:String) {
         self.description = description
     }
+
 }
